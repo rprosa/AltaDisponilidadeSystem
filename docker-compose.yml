@@ -1,0 +1,12 @@
+  services:
+   web:
+    build: ./Backend
+    volumes:
+      - ./Swagger/swagger.yml
+
+   nginx:
+    build: ./nginx
+
+   BD:
+    image: mongo
+    
