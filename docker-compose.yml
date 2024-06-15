@@ -2,11 +2,25 @@
    web:
     build: ./Backend
     volumes:
-      - ./Swagger/swagger.yml
+        - ./swagger/swagger.yaml:/app/swagger/swagger.yaml
+    environment:
+        - NODE_ENV=development
+    deploy:
+          replicas: 3
+    ports:
+        - "5000"
 
    nginx:
     build: ./nginx
+    ports:  
+        - "80:80"
+    depends_on:
+        - web
 
    BD:
     image: mongo
+    volumes:  
+      - mongo-data:/data/db
+  volumes:
+      mongo-data:
     
