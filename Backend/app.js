@@ -11,7 +11,7 @@ app.use(cors());
 const swaggerDocumento = YAML.load('./swagger/swagger.yaml');
 app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocumento));
 
-mongoose.connect('BD://localhost:27017/mydatabase', {
+mongoose.connect('mongodb://DB:27017/mydatabase', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
@@ -54,9 +54,9 @@ app.post('/items', async (req, res) => {
     await Item.findByIdAndDelete(req.params.id);
     res.status(204).send();
   });
-  const PORT = process.env.PORT || 5000;
 
-  app.listen(port, () => {
-    console.log (`App running on port ${port}`);
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => {
+    console.log (`App running on port ${PORT}`);
   });
   

@@ -1,0 +1,99 @@
+openapi: 3.0.3
+info:
+  description: "API de Itens"
+  version: "1.0.0"
+  title: "API de Itens"
+servers:
+  - url: "http://localhost:5000"
+    description: Servidor local
+tags:
+  - name: "item"
+    description: "Operações sobre itens"
+paths:
+  /item:
+    get:
+      tags:
+        - "item"
+      summary: "Obter todos os itens"
+      responses:
+        200:
+          description: "Lista de itens"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/Item"
+    post:
+      tags:
+        - "item"
+      summary: "Criar um novo item"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Item"
+      responses:
+        201:
+          description: "Item criado"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Item"
+  /item/{itemId}:
+    put:
+      tags:
+        - "item"
+      summary: "Atualizar um item existente"
+      parameters:
+        - name: "itemId"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Item"
+      responses:
+        200:
+          description: "Item atualizado"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Item"
+        404:
+          description: "Item não encontrado"
+    delete:
+      tags:
+        - "item"
+      summary: "Deletar um item existente"
+      parameters:
+        - name: "itemId"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+      responses:
+        204:
+          description: "Item deletado"
+        404:
+          description: "Item não encontrado"
+components:
+  schemas:
+    Item:
+      type: "object"
+      required:
+        - "id"
+        - "name"
+        - "description"
+      properties:
+        id:
+          type: "integer"
+        name:
+          type: "string"
+        description:
+          type: "string"

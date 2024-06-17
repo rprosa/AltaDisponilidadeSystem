@@ -18,9 +18,10 @@
         - web
 
    BD:
-    image: mongo
+    image: mongo:4.4.6
     volumes:  
       - mongo-data:/data/db
+
   volumes:
       mongo-data:
     
