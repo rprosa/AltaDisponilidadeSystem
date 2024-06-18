@@ -28,30 +28,30 @@ const produtoSchema = new mongoose.Schema({
   description: { type: String, required: true },
 });
 
-const produto = mongoose.model('produto', produtoSchema);
+const Produto = mongoose.model('Produto', produtoSchema);
 
-app.get('/produtos', async (req, res) => {
+app.get('/produto', async (req, res) => {
   try {
-    const produtos = await produto.find();
-    res.status(200).json(produtos);
+    const produto = await Produto.find();
+    res.status(200).json(produto);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Erro no servidor' });
   }
 });
-app.post('/produtos', async (req, res) => {
-    const newproduto = new produto(req.body);
-    await newproduto.save();
-    res.status(201).json(newproduto);
+app.post('/produto', async (req, res) => {
+    const newProduto = new Produto(req.body);
+    await newProduto.save();
+    res.status(201).json(newProduto);
   });
   
-  app.put('/produtos/:id', async (req, res) => {
-    const updatedproduto = await produto.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    res.json(updatedproduto);
+  app.put('/produto/:produtoId', async (req, res) => {
+    const updatedProduto = await Produto.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    res.json(updatedProduto);
   });
   
-  app.delete('/produtos/:id', async (req, res) => {
-    await produto.findByIdAndDelete(req.params.id);
+  app.delete('/produto/:produtoId', async (req, res) => {
+    await Produto.findByIdAndDelete(req.params.id);
     res.status(204).send();
   });
 

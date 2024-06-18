@@ -1,9 +1,6 @@
 Sistema de Alta Disponibilidade.
 
 Desafio: 
-
-Ocultar informações da atribuição
-Instruções
 Trabalho Prático: Implementação de um Sistema de Alta Disponibilidade Usando Docker Compose, Nginx, Swagger e MongoDB
 Objetivo:
 O objetivo deste trabalho prático é desenvolver e implementar um sistema de alta disponibilidade utilizando Docker Compose, 

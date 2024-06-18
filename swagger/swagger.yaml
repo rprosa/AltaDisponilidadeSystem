@@ -1,20 +1,20 @@
 openapi: 3.0.3
 info:
-  description: "A.P.I de Super-mercados"
+  description: "A.P.I de Produtos"
   version: "1.0.0"
-  title: "A.P.I de Super-mercados"
+  title: "A.P.I de Listagem de Produtos"
 servers:
   - url: "http://localhost:5000"
     description: Servidor local
 tags:
-  - name: "produtos"
-    description: "Operações sobre Super-mercados"
+  - name: "produto"
+    description: "Operações sobre produtos de Super-mercados"
 paths:
-  /produtos:
+  /produto:
     get:
       tags:
-        - "produtos"
-      summary: "Obter todos os produtos de Super-mercados"
+        - "produto"
+      summary: "Obter lista os produtos de Super-mercados"
       responses:
         200:
           description: "Lista de Produto"
@@ -23,31 +23,31 @@ paths:
               schema:
                 type: "array"
                 items:
-                  $ref: "#/components/schemas/produtos"
+                  $ref: "#/components/schemas/Produto"
     post:
       tags:
-        - "produtos"
-      summary: "Criar um novo produto"
+        - "produto"
+      summary: "Cadastrar um novo produto"
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/produtos"
+              $ref: "#/components/schemas/Produto"
       responses:
         201:
           description: "produtos criado"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/produtos"
-  /produtos/{produtosId}:
+                $ref: "#/components/schemas/Produto"
+  /produto/{produtoId}:
     put:
       tags:
-        - "produtos"
+        - "produto"
       summary: "Atualizar um produto já existente"
       parameters:
-        - name: "produtosId"
+        - name: "produtoId"
           in: "path"
           required: true
           schema:
@@ -57,22 +57,22 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/produtos"
+              $ref: "#/components/schemas/Produto"
       responses:
         200:
           description: "produto atualizado"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/produtos"
+                $ref: "#/components/schemas/Produto"
         404:
           description: "produto não identificado"
     delete:
       tags:
-        - "produtos"
+        - "produto"
       summary: "Deletar um produto identificado"
       parameters:
-        - name: "produtosId"
+        - name: "produtoId"
           in: "path"
           required: true
           schema:
@@ -84,7 +84,7 @@ paths:
           description: "produto não identificado"
 components:
   schemas:
-    produtos:
+    Produto:
       type: "object"
       required:
         - "id"
