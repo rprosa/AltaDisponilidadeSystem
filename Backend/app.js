@@ -11,7 +11,7 @@ app.use(cors());
 const swaggerDocumento = YAML.load('./swagger/swagger.yaml');
 app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocumento));
 
-mongoose.connect('mongodb://DB:27017/mydatabase', {
+mongoose.connect('mongodb://mongodb:27017/mydatabase', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
@@ -22,36 +22,36 @@ mongoose.connect('mongodb://DB:27017/mydatabase', {
   console.error('Error connecting to MongoDB', error);
 });
 
-const itemSchema = new mongoose.Schema({
+const produtoSchema = new mongoose.Schema({
   id: { type: Number, required: true, unique: true },
   name: { type: String, required: true },
   description: { type: String, required: true },
 });
 
-const Item = mongoose.model('Item', itemSchema);
+const produto = mongoose.model('produto', produtoSchema);
 
-app.get('/item', async (req, res) => {
+app.get('/produtos', async (req, res) => {
   try {
-    const items = await Item.find();
-    res.status(200).json(items);
+    const produtos = await produto.find();
+    res.status(200).json(produtos);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Erro no servidor' });
   }
 });
-app.post('/items', async (req, res) => {
-    const newItem = new Item(req.body);
-    await newItem.save();
-    res.status(201).json(newItem);
+app.post('/produtos', async (req, res) => {
+    const newproduto = new produto(req.body);
+    await newproduto.save();
+    res.status(201).json(newproduto);
   });
   
-  app.put('/items/:id', async (req, res) => {
-    const updatedItem = await Item.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    res.json(updatedItem);
+  app.put('/produtos/:id', async (req, res) => {
+    const updatedproduto = await produto.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    res.json(updatedproduto);
   });
   
-  app.delete('/items/:id', async (req, res) => {
-    await Item.findByIdAndDelete(req.params.id);
+  app.delete('/produtos/:id', async (req, res) => {
+    await produto.findByIdAndDelete(req.params.id);
     res.status(204).send();
   });
 

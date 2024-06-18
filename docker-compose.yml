@@ -1,23 +1,41 @@
   services:
-   web:
+   web1:
     build: ./Backend
     volumes:
         - ./swagger/swagger.yaml:/app/swagger/swagger.yaml
     environment:
         - NODE_ENV=development
-    deploy:
-          replicas: 3
     ports:
-        - "5000"
+        - "5000:5000"
+
+   web2:
+    build: ./Backend
+    volumes:
+        - ./swagger/swagger.yaml:/app/swagger/swagger.yaml
+    environment:
+        - NODE_ENV=development
+    ports:
+        - "5001:5000"
+
+   web3:
+    build: ./Backend
+    volumes:
+        - ./swagger/swagger.yaml:/app/swagger/swagger.yaml
+    environment:
+        - NODE_ENV=development
+    ports:
+        - "5002:5000"
 
    nginx:
     build: ./nginx
     ports:  
         - "80:80"
     depends_on:
-        - web
+        - web1
+        - web2
+        - web3
 
-   BD:
+   mongodb:
     image: mongo:4.4.6
     volumes:  
       - mongo-data:/data/db
